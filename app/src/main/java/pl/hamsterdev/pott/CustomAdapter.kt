@@ -11,7 +11,7 @@ import java.util.Calendar
 import java.util.Date
 
 
-class CustomAdapter(private val items: List<ItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private val todayMidnight: Instant
         get() {
@@ -37,15 +37,14 @@ class CustomAdapter(private val items: List<ItemsViewModel>) : RecyclerView.Adap
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val itemsViewModel = items[position]
+        val itemModel = items[position]
 
-        holder.itemName.text = itemsViewModel.name
-        holder.quantity.text = itemsViewModel.quantity
+        holder.itemName.text = itemModel.name
+        holder.quantity.text = itemModel.quantity.toString()
 
         val start = todayMidnight
-        val expireAt = Date(itemsViewModel.daysLeft.toLong())
         val end = Calendar.getInstance()
-        end.time = expireAt
+        end.time = Date(itemModel.expireAt)
 
         val duration = Duration.between(start, end.toInstant())
 
