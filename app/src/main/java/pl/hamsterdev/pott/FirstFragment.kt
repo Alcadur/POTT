@@ -30,7 +30,11 @@ class FirstFragment : Fragment() {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         storeManager = StoreManager(requireContext())
 
-        val items = storeManager.getItems().map { item -> ItemsViewModel(item.get("name") as String) }
+        val items = storeManager.getItems().map { item -> ItemsViewModel(
+            item.name,
+            item.quantity.toString(),
+            item.expireAt.toString()
+        ) }
 
         binding.itemsList.layoutManager = LinearLayoutManager(requireContext())
         binding.itemsList.adapter = CustomAdapter(items)

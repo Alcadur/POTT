@@ -23,7 +23,7 @@ class StoreManager {
     private val filesDir: File
         get() = context.filesDir
 
-    private fun saveFile(items: MutableList<JSONObject>) {
+    private fun saveFile(items: MutableList<ItemModel>) {
         val file = File(filesDir, fileName)
         val fileWriter = FileWriter(file)
         val bufferWriter = BufferedWriter(fileWriter)
@@ -31,17 +31,19 @@ class StoreManager {
         bufferWriter.close();
     }
 
-    fun addItem(item: JSONObject) {
-        item.put("id", UUID.randomUUID().toString())
+    fun addItem(item: ItemModel) {
+        if (item.id.isNullOrBlank()) {
+            item.id = UUID.randomUUID().toString()
+        }
         val items = getItems()
         items.add(item)
 
         saveFile(items)
     }
 
-    fun getItems(): MutableList<JSONObject> {
+    fun getItems(): MutableList<ItemModel> {
         val file =  File(filesDir, fileName)
-        var items = mutableListOf<JSONObject>()
+        var items = mutableListOf<ItemModel>()
 
         if (file.exists()) {
             val resultString = getFileContent(file)
@@ -51,14 +53,14 @@ class StoreManager {
         return items
     }
 
-    private fun parseStringResult(resultString: String): MutableList<JSONObject> {
+    private fun parseStringResult(resultString: String): MutableList<ItemModel> {
         val jsonStrings = resultString.substring(1, resultString.length - 1).split("},")
         return jsonStrings.map { jsonString ->
             if (jsonString.get(jsonString.length - 1) != '}') {
-                return@map JSONObject("$jsonString}")
+                return@map ItemModel("$jsonString}")
             }
 
-            JSONObject(jsonString)
+            ItemModel(jsonString)
         }.toMutableList()
     }
 

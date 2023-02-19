@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import org.json.JSONObject
 import pl.hamsterdev.pott.databinding.FragmentAddItemFormBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -66,14 +65,14 @@ class AddItemFormFragment : Fragment() {
         datePicker.show()
     }
 
-    private fun collectData(): JSONObject {
-        val name = binding.itemNameField.text
-        val quantity = binding.quantityField.text
+    private fun collectData(): ItemModel {
+        val name = binding.itemNameField.text.toString()
+        val quantity = binding.quantityField.text.toString().toInt()
         val expireDateArray = binding.expDateField.text.split('/').map { value -> value.toInt() }
         val calendar = Calendar.getInstance()
         calendar.set(expireDateArray[2], expireDateArray[1], expireDateArray[1])
 
-        return JSONObject("{ name: $name, quantity: $quantity, expireAt: ${calendar.timeInMillis} }")
+        return ItemModel(name = name, quantity = quantity, expireAt = calendar.timeInMillis)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
