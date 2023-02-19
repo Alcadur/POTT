@@ -23,13 +23,9 @@ class CustomAdapter(private val items: List<ItemsViewModel>) : RecyclerView.Adap
 
         val itemsViewModel = items[position]
 
-        // sets the image to the imageview from our itemHolder class
-//        holder.imageView.setImageResource(ItemsViewModel.image)
         holder.itemName.text = itemsViewModel.name
-
-        // sets the text to the textview from our itemHolder class
-//        holder.textView.text = ItemsViewModel.text
-
+        holder.quantity.text = itemsViewModel.quantity
+        holder.daysLeft.text = itemsViewModel.daysLeft
     }
 
     // return the number of the items in the list
@@ -38,8 +34,9 @@ class CustomAdapter(private val items: List<ItemsViewModel>) : RecyclerView.Adap
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-//        val imageView: ImageView = itemView.findViewById(R.id.imageview)
         val itemName: TextView = itemView.findViewById(R.id.item_name)
+        val quantity: TextView = itemView.findViewById(R.id.item_quantity)
+        val daysLeft: TextView = itemView.findViewById(R.id.days_left)
 
     }
 }
