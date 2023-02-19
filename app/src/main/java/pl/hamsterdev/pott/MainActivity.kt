@@ -1,15 +1,16 @@
 package pl.hamsterdev.pott
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import pl.hamsterdev.pott.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 

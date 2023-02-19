@@ -1,18 +1,14 @@
 package pl.hamsterdev.pott
 
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import java.time.Duration
 import java.time.Instant
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 
 class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
