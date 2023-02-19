@@ -70,7 +70,8 @@ class AddItemFormFragment : Fragment() {
         val quantity = binding.quantityField.text.toString().toInt()
         val expireDateArray = binding.expDateField.text.split('/').map { value -> value.toInt() }
         val calendar = Calendar.getInstance()
-        calendar.set(expireDateArray[2], expireDateArray[1], expireDateArray[1])
+        calendar.set(expireDateArray[2], expireDateArray[1].toInt() - 1, expireDateArray[0], 0, 0, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
         return ItemModel(name = name, quantity = quantity, expireAt = calendar.timeInMillis)
     }
