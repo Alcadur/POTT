@@ -1,9 +1,13 @@
 package pl.hamsterdev.pott
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import java.time.Duration
 import java.time.Instant
@@ -46,9 +50,14 @@ class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<C
         val end = Calendar.getInstance()
         end.time = Date(itemModel.expireAt)
 
-        val duration = Duration.between(start, end.toInstant())
-
-        holder.daysLeft.text = duration.toDays().toString()
+        val duration = Duration.between(start, end.toInstant()).toDays()
+        if (duration < 0) {
+            holder.row.setBackgroundColor(0x73FF0000)
+        }
+        if (duration == 0L) {
+            holder.row.setBackgroundColor(0x66FFC100)
+        }
+        holder.daysLeft.text = duration.toString()
     }
 
     // return the number of the items in the list
@@ -57,9 +66,9 @@ class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<C
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+        val row: LinearLayout = itemView.findViewById(R.id.row)
         val itemName: TextView = itemView.findViewById(R.id.item_name)
         val quantity: TextView = itemView.findViewById(R.id.item_quantity)
         val daysLeft: TextView = itemView.findViewById(R.id.days_left)
-
     }
 }
