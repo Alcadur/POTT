@@ -17,7 +17,7 @@ class StoreManager {
     private val filesDir: File
         get() = context.filesDir
 
-    private fun saveFile(items: MutableList<ItemModel>) {
+    private fun saveFile(items: List<ItemModel>) {
         val file = File(filesDir, fileName)
         val fileWriter = FileWriter(file)
         val bufferWriter = BufferedWriter(fileWriter)
@@ -69,5 +69,11 @@ class StoreManager {
         return stringBuilder.toString()
     }
 
-    fun removeItem(id: String) {}
+    fun removeExpiredItems() {
+        val items = getItems()
+
+        val filteredItems = items.filter { item -> item.duration.toDays() > -2 }
+
+        saveFile(filteredItems)
+    }
 }
