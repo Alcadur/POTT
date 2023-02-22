@@ -51,7 +51,7 @@ class NotificationUtil (private val context: Context) {
         val workerData = Data.Builder()
             .putString(Consts.EXPIRE_NOTIFICATION_ITEM_NAME_PARAM, item.name)
             .putString(Consts.EXPIRE_NOTIFICATION_ITEM_QUANTITY_PARAM, item.quantity.toString())
-            .putString(Consts.EXPIRE_NOTIFICATION_ITEM_QUANTITY_PARAM, item.duration.toDays().toString())
+            .putString(Consts.EXPIRE_NOTIFICATION_ITEM_QUANTITY_PARAM, item.daysLeft.toString())
             .build()
 
         workRequestWorker.setInitialDelay(delayInSeconds, TimeUnit.SECONDS).setInputData(workerData)

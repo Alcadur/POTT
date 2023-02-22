@@ -30,7 +30,7 @@ class ListFragment : Fragment() {
         storeManager = StoreManager(requireContext())
 
         val items = storeManager.getItems()
-        items.sortBy { it.duration.toDays() }
+        items.sortBy { it.daysLeft }
 
         binding.itemsList.layoutManager = LinearLayoutManager(requireContext())
         binding.itemsList.adapter = CustomAdapter(items)

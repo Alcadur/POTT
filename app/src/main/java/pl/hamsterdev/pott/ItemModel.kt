@@ -9,7 +9,7 @@ class ItemModel {
     var name: String
     var quantity: Int = 0
     var expireAt: Long = 0
-    private var _duration: Duration? = null
+    private var _daysLeft: Long? = null
 
     constructor(id: String = UUID.randomUUID().toString(), name: String, quantity: Int, expireAt: Long) {
         this.id = id
@@ -26,27 +26,30 @@ class ItemModel {
         this.expireAt = json.get("expireAt").toString().toLong()
     }
 
-    val duration: Duration
+    val daysLeft: Long
         get() {
-            if (_duration == null) {
-                countDuration()
+            if (_daysLeft == null) {
+                countDaysLeft()
             }
 
-            return _duration!!
+            return _daysLeft!!
         }
 
-    private fun countDuration() {
-        val timeZone = TimeZone.getDefault()
-        val today = Calendar.getInstance(timeZone)
+    val expireAtAsCalendar: Calendar
+        get() {
+            val expireDate = Calendar.getInstance(TimeZone.getDefault())
+            expireDate.time = Date(expireAt)
+            expireDate.set(Calendar.HOUR_OF_DAY, 10)
+            expireDate.set(Calendar.MINUTE, 0)
+            expireDate.set(Calendar.SECOND, 0)
 
-        val expireDate = Calendar.getInstance(timeZone)
-        expireDate.time = Date(expireAt)
-        expireDate.add(Calendar.DAY_OF_MONTH, Consts.EXPIRE_NOTIFICATION_WORKER_DAYS_BEFORE_EXPIRE)
-        expireDate.set(Calendar.HOUR_OF_DAY, Consts.EXPIRE_NOTIFICATION_WORKER_HOUR_OF_DAY)
-        expireDate.set(Calendar.MINUTE, Consts.EXPIRE_NOTIFICATION_WORKER_MINUTES)
-        expireDate.set(Calendar.SECOND, Consts.EXPIRE_NOTIFICATION_WORKER_SECOND)
+            return expireDate
+        }
 
-        _duration = Duration.between(today.toInstant(), expireDate.toInstant())
+    private fun countDaysLeft() {
+        val today = Calendar.getInstance(TimeZone.getDefault())
+
+        _daysLeft = Duration.between(today.toInstant(), expireAtAsCalendar.toInstant()).toDays()
     }
 
     fun validate(): List<Int> {
@@ -60,7 +63,7 @@ class ItemModel {
             errors.add(R.string.validation_item_modal_quantity_empty)
         }
 
-        if (duration.toMillis() < 1) {
+        if (daysLeft < 1) {
             errors.add(R.string.validation_item_model_expire_at)
         }
 

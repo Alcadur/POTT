@@ -72,7 +72,7 @@ class StoreManager {
     fun removeExpiredItems() {
         val items = getItems()
 
-        val filteredItems = items.filter { item -> item.duration.toDays() > -2 }
+        val filteredItems = items.filter { item -> item.daysLeft > -2 }
 
         saveFile(filteredItems)
     }

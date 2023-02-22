@@ -28,14 +28,13 @@ class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<C
         holder.itemName.text = itemModel.name
         holder.quantity.text = itemModel.quantity.toString()
 
-        val durationInDays = itemModel.duration.toDays()
-        if (durationInDays < 0) {
+        if (itemModel.daysLeft < 0) {
             holder.row.setBackgroundColor(0x73FF0000)
         }
-        if (durationInDays == 0L) {
+        if (itemModel.daysLeft == 0L) {
             holder.row.setBackgroundColor(0x66FFC100)
         }
-        holder.daysLeft.text = durationInDays.toString()
+        holder.daysLeft.text = itemModel.daysLeft.toString()
     }
 
     // return the number of the items in the list
