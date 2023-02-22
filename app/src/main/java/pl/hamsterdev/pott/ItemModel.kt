@@ -3,12 +3,12 @@ package pl.hamsterdev.pott
 import org.json.JSONObject
 
 class ItemModel {
-    var id: String? = null
+    val id: String
     var name: String
     var quantity: Int = 0
     var expireAt: Long = 0
 
-    constructor(id: String? = null, name: String, quantity: Int, expireAt: Long) {
+    constructor(id: String = UUID.randomUUID().toString(), name: String, quantity: Int, expireAt: Long) {
         this.id = id
         this.name = name
         this.quantity = quantity
