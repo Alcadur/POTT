@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="fileName" type="string">saved_items.txt</item>
+    <item name="fileName" type="string" translatable="false">saved_items.txt</item>
 </resources>

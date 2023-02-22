@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">pott</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="first_fragment_label">Lista produktów</string>
+    <string name="exp_date">Ważny do</string>
+    <string name="title_activity_add_item_form">Dodaj produkt</string>
+    <string name="item_name">Nazwa</string>
+    <string name="quantity">Ilość</string>
+    <string name="save">Zapisz</string>
+    <string name="no_permissions_message">To prawidłowego działania aplikacja wymaga uprawnień do Powiadomień</string>
+    <string name="item_expire_notification_body">%1$s (ilość: %2$s) straci ważność za %3$s dni/dzień!</string>
+    <string name="item_expire_notification_title">Kończy się termin produktu</string>
+    <string name="validation_item_modal_name_empty">Nazwa nie może być pusta</string>
+    <string name="validation_item_modal_quantity_empty">Ilość musi być większa od zera</string>
+    <string name="validation_item_model_expire_at">Termin ważności bysi znajdować się w przyszłości</string>
+</resources>
