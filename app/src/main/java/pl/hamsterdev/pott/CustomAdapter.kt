@@ -6,23 +6,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.time.Duration
-import java.time.Instant
-import java.util.*
 
 
 class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-
-    private val todayMidnight: Instant
-        get() {
-            val today = Calendar.getInstance()
-            today.set(Calendar.HOUR_OF_DAY, 0)
-            today.set(Calendar.MINUTE, 0)
-            today.set(Calendar.SECOND, 0)
-            today.set(Calendar.MILLISECOND, 0)
-
-            return today.toInstant()
-        }
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,18 +28,14 @@ class CustomAdapter(private val items: List<ItemModel>) : RecyclerView.Adapter<C
         holder.itemName.text = itemModel.name
         holder.quantity.text = itemModel.quantity.toString()
 
-        val start = todayMidnight
-        val end = Calendar.getInstance()
-        end.time = Date(itemModel.expireAt)
-
-        val duration = Duration.between(start, end.toInstant()).toDays()
-        if (duration < 0) {
+        val durationInDays = itemModel.duration.toDays()
+        if (durationInDays < 0) {
             holder.row.setBackgroundColor(0x73FF0000)
         }
-        if (duration == 0L) {
+        if (durationInDays == 0L) {
             holder.row.setBackgroundColor(0x66FFC100)
         }
-        holder.daysLeft.text = duration.toString()
+        holder.daysLeft.text = durationInDays.toString()
     }
 
     // return the number of the items in the list
