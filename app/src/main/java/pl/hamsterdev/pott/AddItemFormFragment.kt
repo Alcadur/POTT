@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import pl.hamsterdev.pott.databinding.FragmentAddItemFormBinding
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.util.*
 
 class AddItemFormFragment : Fragment() {
@@ -43,7 +44,17 @@ class AddItemFormFragment : Fragment() {
 
             storeManager.addItem(item)
 
-            NotificationUtil(requireContext()).scheduleExpireNotification(item, item.duration.toSeconds())
+            val now = Calendar.getInstance(TimeZone.getDefault()).toInstant()
+
+            val notificationDate = item.expireAtAsCalendar
+            notificationDate.add(Calendar.DAY_OF_MONTH, Consts.EXPIRE_NOTIFICATION_WORKER_DAYS_BEFORE_EXPIRE)
+            notificationDate.set(Calendar.HOUR_OF_DAY, Consts.EXPIRE_NOTIFICATION_WORKER_HOUR_OF_DAY)
+            notificationDate.set(Calendar.MINUTE, Consts.EXPIRE_NOTIFICATION_WORKER_MINUTES)
+            notificationDate.set(Calendar.SECOND, Consts.EXPIRE_NOTIFICATION_WORKER_SECOND)
+
+            val secondsLeftToNotification = Duration.between(now, notificationDate.toInstant()).toSeconds()
+
+            NotificationUtil(requireContext()).scheduleExpireNotification(item, secondsLeftToNotification)
 
             findNavController().navigate(R.id.action_addItemForm_to_FirstFragment)
         }
@@ -94,7 +105,6 @@ class AddItemFormFragment : Fragment() {
 
             expireAt = calendar.timeInMillis
         }
-
 
         return ItemModel(name = name, quantity = quantity, expireAt = expireAt)
     }
