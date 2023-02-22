@@ -30,6 +30,7 @@ class FirstFragment : Fragment() {
         storeManager = StoreManager(requireContext())
 
         val items = storeManager.getItems()
+        items.sortBy { it.duration.toDays() }
 
         binding.itemsList.layoutManager = LinearLayoutManager(requireContext())
         binding.itemsList.adapter = CustomAdapter(items)
