@@ -48,8 +48,18 @@ class ItemModel {
 
     private fun countDaysLeft() {
         val today = Calendar.getInstance(TimeZone.getDefault())
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+        today.set(Calendar.MILLISECOND, 0)
 
-        _daysLeft = Duration.between(today.toInstant(), expireAtAsCalendar.toInstant()).toDays()
+        val expireAtCalendar = expireAtAsCalendar
+        expireAtCalendar.set(Calendar.HOUR_OF_DAY, 0)
+        expireAtCalendar.set(Calendar.MINUTE, 0)
+        expireAtCalendar.set(Calendar.SECOND, 0)
+        expireAtCalendar.set(Calendar.MILLISECOND, 0)
+
+        _daysLeft = Duration.between(today.toInstant(), expireAtCalendar.toInstant()).toDays()
     }
 
     fun validate(): List<Int> {
