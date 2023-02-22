@@ -1,6 +1,7 @@
 package pl.hamsterdev.pott
 
 import android.content.Context
+import org.json.JSONArray
 import java.io.*
 
 class StoreManager {
@@ -45,14 +46,15 @@ class StoreManager {
     }
 
     private fun parseStringResult(resultString: String): MutableList<ItemModel> {
-        val jsonStrings = resultString.substring(1, resultString.length - 1).split("},")
-        return jsonStrings.map { jsonString ->
-            if (jsonString.get(jsonString.length - 1) != '}') {
-                return@map ItemModel("$jsonString}")
-            }
+        val jsonArray = JSONArray(resultString)
+        val result = mutableListOf<ItemModel>()
 
-            ItemModel(jsonString)
-        }.toMutableList()
+        (0 until jsonArray.length()).forEach {
+            val itemJson = jsonArray.getString(it)
+            result.add(ItemModel(jsonString = itemJson))
+        }
+
+        return result
     }
 
     private fun getFileContent(file: File): String {
