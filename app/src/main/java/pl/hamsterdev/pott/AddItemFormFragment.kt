@@ -33,15 +33,18 @@ class AddItemFormFragment : Fragment() {
         }
 
         binding.saveItemButton.setOnClickListener clickAction@{
-            val data = collectData()
-            val errors = data.validate()
+            val item  = collectData()
+            val errors = item.validate()
             if (errors.isNotEmpty()) {
                 Toast.makeText(requireContext(), errors.first(), Toast.LENGTH_SHORT).show()
 
                 return@clickAction
             }
 
-            storeManager.addItem(data)
+            storeManager.addItem(item)
+
+            NotificationUtil(requireContext()).scheduleExpireNotification(item, item.duration.toSeconds())
+
             findNavController().navigate(R.id.action_addItemForm_to_FirstFragment)
         }
 
