@@ -53,4 +53,6 @@
     <string name="channel_name">Push message</string>
     <string name="channel_description">Channel for push notifications</string>
     <string name="no_permissions_message">Please grant Notification permission from App Settings</string>
+    <string name="item_expire_notification_body">%1$s (quantity: %2$s) will expire in %3$s day(s)!</string>
+    <string name="item_expire_notification_title">Item will expire soon</string>
 </resources>
