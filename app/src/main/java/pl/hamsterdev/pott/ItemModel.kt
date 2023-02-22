@@ -44,6 +44,24 @@ class ItemModel {
             return _duration!!
         }
 
+    fun validate(): List<Int> {
+        val errors = mutableListOf<Int>()
+
+        if (name.isNullOrEmpty()) {
+            errors.add(R.string.validation_item_modal_name_empty)
+        }
+
+        if (quantity < 1) {
+            errors.add(R.string.validation_item_modal_quantity_empty)
+        }
+
+        if (duration.toMillis() < 1) {
+            errors.add(R.string.validation_item_model_expire_at)
+        }
+
+        return errors
+    }
+
     override fun toString(): String {
         return "{ id: \"$id\", name: \"$name\", quantity: $quantity, expireAt: $expireAt }"
     }

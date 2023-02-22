@@ -55,4 +55,7 @@
     <string name="no_permissions_message">Please grant Notification permission from App Settings</string>
     <string name="item_expire_notification_body">%1$s (quantity: %2$s) will expire in %3$s day(s)!</string>
     <string name="item_expire_notification_title">Item will expire soon</string>
+    <string name="validation_item_modal_name_empty">Item name can\'t be empty</string>
+    <string name="validation_item_modal_quantity_empty">Quantity must be grater then 0</string>
+    <string name="validation_item_model_expire_at">Expiration must be in the future</string>
 </resources>
