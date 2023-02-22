@@ -29,20 +29,25 @@ class ItemModel {
     val duration: Duration
         get() {
             if (_duration == null) {
-                val timeZone = TimeZone.getDefault()
-                val today = Calendar.getInstance(timeZone)
-
-                val expireDate = Calendar.getInstance(timeZone)
-                expireDate.time = Date(expireAt)
-                expireDate.set(Calendar.HOUR_OF_DAY, 10)
-                expireDate.set(Calendar.MINUTE, 0)
-                expireDate.set(Calendar.SECOND, 0)
-
-                _duration = Duration.between(today.toInstant(), expireDate.toInstant())
+                countDuration()
             }
 
             return _duration!!
         }
+
+    private fun countDuration() {
+        val timeZone = TimeZone.getDefault()
+        val today = Calendar.getInstance(timeZone)
+
+        val expireDate = Calendar.getInstance(timeZone)
+        expireDate.time = Date(expireAt)
+        expireDate.add(Calendar.DAY_OF_MONTH, Consts.EXPIRE_NOTIFICATION_WORKER_DAYS_BEFORE_EXPIRE)
+        expireDate.set(Calendar.HOUR_OF_DAY, Consts.EXPIRE_NOTIFICATION_WORKER_HOUR_OF_DAY)
+        expireDate.set(Calendar.MINUTE, Consts.EXPIRE_NOTIFICATION_WORKER_MINUTES)
+        expireDate.set(Calendar.SECOND, Consts.EXPIRE_NOTIFICATION_WORKER_SECOND)
+
+        _duration = Duration.between(today.toInstant(), expireDate.toInstant())
+    }
 
     fun validate(): List<Int> {
         val errors = mutableListOf<Int>()
