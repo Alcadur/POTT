@@ -1,13 +1,7 @@
 package pl.hamsterdev.pott
 
 import android.content.Context
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileReader
-import java.io.FileWriter
-import java.util.UUID
+import java.io.*
 
 class StoreManager {
 
@@ -32,9 +26,6 @@ class StoreManager {
     }
 
     fun addItem(item: ItemModel) {
-        if (item.id.isNullOrBlank()) {
-            item.id = UUID.randomUUID().toString()
-        }
         val items = getItems()
         items.add(item)
 
