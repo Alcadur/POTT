@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import pl.hamsterdev.pott.databinding.FragmentFirstBinding
+import pl.hamsterdev.pott.databinding.FragmentListBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class ListFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentListBinding? = null
     private lateinit var storeManager: StoreManager
 
     // This property is only valid between onCreateView and
@@ -26,7 +26,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
         storeManager = StoreManager(requireContext())
 
         val items = storeManager.getItems()
