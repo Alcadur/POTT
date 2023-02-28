@@ -59,6 +59,10 @@ class NotificationUtil (private val context: Context) {
         WorkManager.getInstance(context).enqueue(workRequestWorker.build())
     }
 
+    fun cancelScheduledNotification(tag: String) {
+        WorkManager.getInstance(context).cancelAllWorkByTag(tag)
+    }
+
     private fun buildNotification(
         title: String,
         message: String

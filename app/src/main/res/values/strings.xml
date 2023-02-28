@@ -17,4 +17,5 @@
     <string name="validation_item_modal_name_empty">Item name can\'t be empty</string>
     <string name="validation_item_modal_quantity_empty">Quantity must be grater then 0</string>
     <string name="validation_item_model_expire_at">Expiration must be in the future</string>
+    <string name="trash_icon">remove icon</string>
 </resources>

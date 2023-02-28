@@ -14,4 +14,5 @@
     <string name="validation_item_modal_name_empty">Nazwa nie może być pusta</string>
     <string name="validation_item_modal_quantity_empty">Ilość musi być większa od zera</string>
     <string name="validation_item_model_expire_at">Termin ważności bysi znajdować się w przyszłości</string>
+    <string name="trash_icon">ikona śmietnika</string>
 </resources>

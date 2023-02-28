@@ -78,4 +78,10 @@ class StoreManager {
 
         saveFile(filteredItems)
     }
+
+    fun removeItemById(id: String) {
+        val items = getItems()
+        items.removeIf { it.id == id }
+        saveFile(items)
+    }
 }
